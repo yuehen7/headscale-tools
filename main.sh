@@ -85,7 +85,7 @@ download_headscale() {
   headscale_version=${headscale_version_temp:1}
 
   LOGI "将选择使用版本:${headscale_version}"
-  local DOWANLOAD_URL="https://github.com/juanfont/headscale/releases/download/${headscale_version_temp}/headscale_${headscale_version}-linux-${OS_ARCH}"
+  local DOWANLOAD_URL="https://github.com/juanfont/headscale/releases/download/${headscale_version_temp}/headscale_${headscale_version}_linux_${OS_ARCH}"
 
   create_or_delete_path 1
   wget --output-document=${BINARY_FILE_PATH} ${DOWANLOAD_URL}
