@@ -337,6 +337,22 @@ uninstall_headscale() {
   fi
 }
 
+register_node() {
+  echo ""
+  while true
+  do
+    read -p "请输入key：" key
+    if [[ -z "${key}" ]]; then
+      LOGE "输入错误，请重新输入！${plain}"
+    else
+      break
+    fi
+  done
+  LOGI "输入的key为：$key"
+  headscale -n default nodes register --key $key
+  headscale nodes list
+}
+
 status_check() {
   if [[ ! -f "${SERVICE_FILE_PATH}" ]]; then
     return ${STATUS_NOT_INSTALL}
@@ -374,9 +390,10 @@ show_menu() {
   ${green}4.${plain} 停止服务
   ${green}5.${plain} 重启服务
   ${green}6.${plain} 查看节点
+  ${green}7.${plain} 添加节点
  "
   show_status
-  echo && read -p "请输入选择[0-6]:" num
+  echo && read -p "请输入选择[0-7]:" num
   case "${num}" in
   0)
     exit 0
@@ -399,8 +416,11 @@ show_menu() {
   6)
     headscale nodes list && show_menu
   ;;  
+  7)
+    register_node && show_menu
+  ;; 
   *)
-    LOGE "请输入正确的选项 [0-6]"
+    LOGE "请输入正确的选项 [0-7]"
     ;;
   esac
 }
